@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Photo Try-On - Virtual Specs 3D Try-On{% endblock %}
+
+{% block content %}
+<div class="tryon-section">
+    <div class="container">
+        <h1 class="page-title">📷 Photo Try-On</h1>
+        <p class="page-subtitle">Upload your photo and try different eyewear frames virtually</p>
+
+        <div class="tryon-container">
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📤</div>
+                        <h3>Upload Your Photo</h3>
+                        <p>Click to browse or drag and drop your image</p>
+                        <p class="upload-note">Supported formats: JPG, PNG (Max 16MB)</p>
+                        <input type="file" id="photoInput" accept="image/jpeg,image/jpg,image/png" style="display: none;">
+                        <button class="btn btn-primary" id="uploadBtn">Choose Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Section -->
+            <div class="canvas-section" id="canvasSection" style="display: none;">
+                <div class="canvas-container">
+                    <canvas id="tryonCanvas" width="800" height="600"></canvas>
+                </div>
+
+                <!-- Controls Section -->
+                <div class="controls-section">
+                    <div class="frame-selector">
+                        <h4>Select Frame</h4>
+                        <div class="frame-options" id="frameOptions">
+                            <!-- Frames will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="position-controls">
+                        <h4>Adjust Position</h4>
+                        <div class="control-group">
+                            <label>X Position: <span id="xValue">400</span></label>
+                            <input type="range" id="xSlider" min="0" max="800" value="400">
+                        </div>
+                        <div class="control-group">
+                            <label>Y Position: <span id="yValue">200</span></label>
+                            <input type="range" id="ySlider" min="0" max="600" value="200">
+                        </div>
+                        <div class="control-group">
+                            <label>Size: <span id="zoomValue">100</span>%</label>
+                            <input type="range" id="zoomSlider" min="50" max="200" value="100">
+                        </div>
+                        <button class="btn btn-secondary" id="resetBtn">Reset Position</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
+<script src="{{ url_for('static', filename='js/photo-upload.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Photo Try-On page loaded');
+    // Photo upload manager will initialize automatically
+});
+</script>
+{% endblock %}

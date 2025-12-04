@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Live Try-On - Virtual Specs 3D Try-On{% endblock %}
+
+{% block content %}
+<div class="tryon-section">
+    <div class="container">
+        <h1 class="page-title">📹 Live Webcam Try-On</h1>
+        <p class="page-subtitle">Use your webcam for real-time virtual try-on experience</p>
+
+        <div class="tryon-container">
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-container">
+                    <video id="webcamVideo" width="800" height="600" autoplay playsinline></video>
+                    <canvas id="liveCanvas" width="800" height="600" style="display: none;"></canvas>
+
+                    <!-- Camera Controls -->
+                    <div class="camera-controls" id="cameraControls">
+                        <button class="btn btn-primary" id="startCameraBtn">Start Camera</button>
+                        <button class="btn btn-secondary" id="stopCameraBtn" style="display: none;">Stop Camera</button>
+                    </div>
+
+                    <!-- Permission Message -->
+                    <div class="permission-message" id="permissionMessage" style="display: none;">
+                        <div class="message-content">
+                            <h4>📹 Camera Access Required</h4>
+                            <p>Please allow camera access to use the live try-on feature.</p>
+                            <button class="btn btn-primary" id="requestPermissionBtn">Enable Camera</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls Section -->
+                <div class="controls-section" id="liveControls" style="display: none;">
+                    <div class="frame-selector">
+                        <h4>Select Frame</h4>
+                        <div class="frame-options" id="liveFrameOptions">
+                            <!-- Frames will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="position-controls">
+                        <h4>Adjust Position</h4>
+                        <div class="control-group">
+                            <label>X Position: <span id="liveXValue">400</span></label>
+                            <input type="range" id="liveXSlider" min="0" max="800" value="400">
+                        </div>
+                        <div class="control-group">
+                            <label>Y Position: <span id="liveYValue">200</span></label>
+                            <input type="range" id="liveYSlider" min="0" max="600" value="200">
+                        </div>
+                        <div class="control-group">
+                            <label>Size: <span id="liveZoomValue">100</span>%</label>
+                            <input type="range" id="liveZoomSlider" min="50" max="200" value="100">
+                        </div>
+                        <div class="control-group">
+                            <label>
+                                <input type="checkbox" id="mirrorVideo" checked>
+                                Mirror Display
+                            </label>
+                        </div>
+                        <button class="btn btn-secondary" id="liveResetBtn">Reset Position</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/webcam.js') }}"></script>
+<script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Live Try-On page loaded');
+    // Initialize webcam functionality will be added in webcam.js
+});
+</script>
+{% endblock %}

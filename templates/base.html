@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Virtual Specs 3D Try-On{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="description" content="Virtual Specs 3D Try-On - Try eyewear virtually with photo upload or live webcam">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Virtual Specs</h1>
+                    <span class="tagline">3D Try-On Experience</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Home</a></li>
+                        <li><a href="{{ url_for('tryon_image') }}" {% if request.endpoint == 'tryon_image' %}class="active"{% endif %}>Photo Try-On</a></li>
+                        <li><a href="{{ url_for('tryon_live') }}" {% if request.endpoint == 'tryon_live' %}class="active"{% endif %}>Live Try-On</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Virtual Specs 3D Try-On. MVP Version.</p>
+                <p>Powered by Flask & Canvas API</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

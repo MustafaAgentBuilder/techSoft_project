@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Virtual Specs 3D Try-On - Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Virtual Specs 3D Try-On</h1>
+            <p class="hero-subtitle">Experience eyewear virtually with our advanced try-on technology</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('tryon_image') }}" class="btn btn-primary btn-large">
+                    <span class="btn-icon">📷</span>
+                    Try with Photo
+                </a>
+                <a href="{{ url_for('tryon_live') }}" class="btn btn-secondary btn-large">
+                    <span class="btn-icon">📹</span>
+                    Try with Webcam
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>Photo Upload</h3>
+                <p>Upload your photo and instantly try different eyewear frames with precise positioning controls.</p>
+                <a href="{{ url_for('tryon_image') }}" class="btn btn-outline">Try Now</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📹</div>
+                <h3>Live Webcam</h3>
+                <p>Use your webcam for real-time virtual try-on with instant frame overlay and adjustments.</p>
+                <a href="{{ url_for('tryon_live') }}" class="btn btn-outline">Try Now</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Frame Selection</h3>
+                <p>Choose from various frame styles including classic, vintage, and modern designs.</p>
+                <a href="{{ url_for('tryon_image') }}" class="btn btn-outline">Browse Frames</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tech-section">
+    <div class="container">
+        <h2 class="section-title">Technology Features</h2>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <h4>⚡ Fast Performance</h4>
+                <p>Frame positioning responds within 200ms for smooth user experience</p>
+            </div>
+            <div class="tech-item">
+                <h4>🎯 Precision Control</h4>
+                <p>Adjust frame position, zoom, and alignment with intuitive controls</p>
+            </div>
+            <div class="tech-item">
+                <h4>📱 Responsive Design</h4>
+                <p>Works seamlessly across desktop, tablet, and mobile devices</p>
+            </div>
+            <div class="tech-item">
+                <h4>🔒 Secure Processing</h4>
+                <p>All images processed locally with secure file handling</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Add any home page specific JavaScript here
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Virtual Specs 3D Try-On - Home Page Loaded');
+});
+</script>
+{% endblock %}

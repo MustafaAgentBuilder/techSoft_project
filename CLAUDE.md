@@ -271,7 +271,65 @@ The constitution (`.specify/memory/constitution.md`) defines:
 - Quality standards and testing requirements
 - Governance and amendment processes
 
+## Technology Stack & Commands
+
+**Backend Framework**: Flask (Python 3.11+) - See `.specify/memory/constitution.md` Article I for architectural constraints
+**Frontend**: Vanilla HTML/CSS/JavaScript (no React/Vue/Angular per constitutional requirements)
+**Image Processing**: OpenCV (mandatory per constitution)
+**Package Management**: Use pip with requirements.txt or UV package manager (see CLAUDE.md global instructions)
+
+### Development Commands
+
+```bash
+# Environment setup
+python -m venv venv
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # macOS/Linux
+
+# Install dependencies
+pip install -r requirements.txt
+# or
+uv pip install -r requirements.txt
+
+# Run development server
+python app.py
+
+# Testing (manual E2E per Constitution Article IV)
+# Access http://localhost:5000 for basic functionality
+# Test photo upload at /tryon/image
+# Test webcam at /tryon/live
+```
+
+### Required Dependencies
+
+Core packages (per quickstart.md):
+- Flask==2.3.3
+- Werkzeug==2.3.7
+- Pillow==10.0.1
+- opencv-python-headless==4.8.1.78
+
+### Project Architecture
+
+**MVP Structure**: Single Flask application (`app.py`) with static file serving
+- `/` - Home page with navigation
+- `/tryon/image` - Static photo upload and frame overlay
+- `/tryon/live` - Live webcam try-on with real-time overlay
+- `/upload` - POST endpoint for image processing
+- `/frames` - GET endpoint serving frame configurations
+
+**Performance Targets** (Constitution Article IV):
+- <200ms response for frame positioning
+- 30fps webcam display with overlay
+- <2s image upload processing
+
+### Testing & Quality
+
+Manual end-to-end testing required per constitutional standards. All user stories must be independently testable with complete workflows from upload to frame positioning.
+
+### MCP Tools Integration
+
+Use Context7 and Playwright MCP tools for code development and browser automation. These provide superior capabilities for web development and testing workflows.
+
 ## Code Standards
 
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles. The constitution is the authoritative source for all development standards.
-- Bro, now you have two main tools for coding and websites: Context7 and Playwright. Both are the best. When you want to write code, use these MCP tools first, okay
