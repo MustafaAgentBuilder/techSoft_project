@@ -1,8 +1,8 @@
-# Claude Code Rules
+# CLAUDE.md
 
-This file is generated during init for the selected agent.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-You are an expert AI assistant specializing in Spec-Driven Development (SDD). Your primary goal is to work with the architext to build products.
+You are an expert AI assistant specializing in Spec-Driven Development (SDD). Your primary goal is to work with the architect to build products.
 
 ## Task context
 
@@ -196,15 +196,82 @@ If ALL true, suggest:
 
 Wait for consent; never auto-create ADRs. Group related decisions (stacks, authentication, deployment) into one ADR when appropriate.
 
-## Basic Project Structure
+## Project Structure and Commands
 
-- `.specify/memory/constitution.md` — Project principles
-- `specs/<feature>/spec.md` — Feature requirements
-- `specs/<feature>/plan.md` — Architecture decisions
-- `specs/<feature>/tasks.md` — Testable tasks with cases
-- `history/prompts/` — Prompt History Records
-- `history/adr/` — Architecture Decision Records
-- `.specify/` — SpecKit Plus templates and scripts
+This is a **Spec-Driven Development (SDD) template repository** that implements a structured development workflow. The project uses PowerShell scripts for automation and markdown templates for all development artifacts.
+
+### Core Commands (Always use `/sp.*` commands)
+
+**Development Workflow:**
+- `/sp.specify` - Create feature specifications from natural language descriptions
+- `/sp.plan` - Generate implementation plans and architecture decisions
+- `/sp.tasks` - Create testable task lists with acceptance criteria
+- `/sp.implement` - Execute the implementation plan by processing tasks.md
+- `/sp.analyze` - Cross-artifact consistency and quality analysis
+- `/sp.clarify` - Identify underspecified areas and ask targeted questions
+- `/sp.checklist` - Generate custom quality checklists for features
+
+**Governance:**
+- `/sp.constitution` - Create or update project principles and governance
+- `/sp.adr` - Create Architecture Decision Records for significant decisions
+- `/sp.phr` - Record AI exchanges as Prompt History Records for learning
+
+**Git Automation:**
+- `/sp.git.commit_pr` - Autonomous git workflow agent for commits and PRs
+
+### Directory Structure
+
+```
+.specify/                          # Core framework
+├── memory/constitution.md         # Project principles (template)
+├── templates/                     # All development artifact templates
+└── scripts/powershell/            # Automation scripts
+
+.claude/commands/                  # Slash command definitions
+├── sp.specify.md                  # Feature creation workflow
+├── sp.plan.md                     # Architecture planning
+├── sp.tasks.md                    # Task generation
+└── [other sp.* commands]          # All other workflows
+
+specs/                             # Created dynamically per feature
+└── [###-feature-name]/            # Feature directories
+    ├── spec.md                    # Feature specification
+    ├── plan.md                    # Implementation plan
+    └── tasks.md                   # Task list with acceptance criteria
+
+history/                           # Development history and traceability
+├── prompts/                       # Prompt History Records (PHRs)
+│   ├── constitution/              # Constitution-related PHRs
+│   ├── [feature-name]/            # Feature-specific PHRs
+│   └── general/                   # General PHRs
+└── adr/                          # Architecture Decision Records
+```
+
+### Development Workflow
+
+1. **Specification First**: Every feature starts with `/sp.specify` + natural language description
+2. **Branch Naming**: Features are automatically named `[number]-[short-name]` (e.g., "001-user-auth")
+3. **Stage Gates**: Strict progression: spec → plan → tasks → implement
+4. **Template-Based**: All artifacts use structured markdown templates
+5. **PHR Tracking**: Every interaction creates a Prompt History Record for complete traceability
+
+### PowerShell Scripts
+
+Key scripts in `.specify/scripts/powershell/`:
+- `create-new-feature.ps1` - Feature branch creation and setup
+- `setup-plan.ps1` - Plan initialization and template processing
+- `update-agent-context.ps1` - Context management for AI agents
+- `common.ps1` - Shared utilities (Get-RepoRoot, Get-CurrentBranch)
+
+### Constitutional Framework
+
+The constitution (`.specify/memory/constitution.md`) defines:
+- Core development principles
+- Technology stack constraints
+- Quality standards and testing requirements
+- Governance and amendment processes
 
 ## Code Standards
-See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles. The constitution is the authoritative source for all development standards.
+- Bro, now you have two main tools for coding and websites: Context7 and Playwright. Both are the best. When you want to write code, use these MCP tools first, okay
