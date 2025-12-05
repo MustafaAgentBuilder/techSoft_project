@@ -732,7 +732,7 @@ body {
 
 /* Try-On Pages Styles */
 .tryon-section {
-    padding: 8rem 0 2rem 0; /* Increased top padding for fixed header */
+    padding: 10rem 0 2rem 0; /* Further increased top padding for fixed header */
     background-color: white;
 }
 

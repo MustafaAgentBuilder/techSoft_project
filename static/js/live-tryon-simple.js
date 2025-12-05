@@ -98,35 +98,94 @@ class SimpleLiveTryOnManager {
                 return;
             }
 
+            // Check if browser supports getUserMedia
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error('Browser does not support camera access');
+            }
+
+            console.log('Requesting camera permission...');
+
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: {
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
+                    width: { ideal: 1280, min: 640 },
+                    height: { ideal: 720, min: 480 },
+                    facingMode: 'user'
                 }
             });
+
+            console.log('Camera access granted, setting up video stream...');
 
             video.srcObject = stream;
-            video.play();
 
-            // Wait for video to be ready
-            video.addEventListener('loadedmetadata', () => {
-                this.canvas.width = video.videoWidth;
-                this.canvas.height = video.videoHeight;
-                this.isStreaming = true;
-                this.startRendering();
-
-                // Show controls
-                const controlsSection = document.getElementById('liveControls');
-                if (controlsSection) {
-                    controlsSection.style.display = 'block';
-                }
-
-                console.log('Webcam setup complete and streaming started');
+            // Add error handling for video element
+            video.addEventListener('error', (e) => {
+                console.error('Video error:', e);
+                alert('Video stream error. Please check camera permissions.');
             });
 
+            // Wait for video to be ready and playing
+            video.addEventListener('loadedmetadata', () => {
+                console.log('Video metadata loaded:', video.videoWidth, 'x', video.videoHeight);
+
+                // Set canvas dimensions to match video
+                this.canvas.width = video.videoWidth;
+                this.canvas.height = video.videoHeight;
+
+                console.log('Canvas dimensions set:', this.canvas.width, 'x', this.canvas.height);
+
+                // Start video playback
+                video.play().then(() => {
+                    console.log('Video playback started');
+                    this.isStreaming = true;
+                    this.startRendering();
+
+                    // Show controls
+                    const controlsSection = document.getElementById('liveControls');
+                    if (controlsSection) {
+                        controlsSection.style.display = 'block';
+                        console.log('Controls section shown');
+                    }
+
+                    console.log('✅ Webcam setup complete and streaming started');
+                }).catch((playError) => {
+                    console.error('Video playback error:', playError);
+                    alert('Unable to start video playback. Please check camera permissions.');
+                });
+            });
+
+            // Add timeout for video loading
+            setTimeout(() => {
+                if (!this.isStreaming) {
+                    console.warn('Video loading timeout - trying to force start');
+                    if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+                        this.canvas.width = video.videoWidth || 800;
+                        this.canvas.height = video.videoHeight || 600;
+                        this.isStreaming = true;
+                        this.startRendering();
+
+                        const controlsSection = document.getElementById('liveControls');
+                        if (controlsSection) {
+                            controlsSection.style.display = 'block';
+                        }
+                    }
+                }
+            }, 5000);
+
         } catch (error) {
-            console.error('Error setting up webcam:', error);
-            alert('Unable to access webcam. Please ensure you have granted camera permissions.');
+            console.error('❌ Error setting up webcam:', error);
+
+            let errorMessage = 'Unable to access webcam. ';
+            if (error.name === 'NotAllowedError') {
+                errorMessage += 'Please grant camera permissions and refresh the page.';
+            } else if (error.name === 'NotFoundError') {
+                errorMessage += 'No camera found. Please connect a camera.';
+            } else if (error.name === 'NotSupportedError') {
+                errorMessage += 'Camera not supported by this browser.';
+            } else {
+                errorMessage += 'Please check camera permissions and try again.';
+            }
+
+            alert(errorMessage);
         }
     }
 
@@ -254,13 +313,29 @@ class SimpleLiveTryOnManager {
         if (!this.ctx || !this.canvas) return;
 
         const video = document.getElementById('webcamVideo');
-        if (!video || video.readyState !== 4) return;
+        if (!video || video.readyState < 2) return; // HAVE_CURRENT_DATA
 
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Check if mirroring is enabled
+        const mirrorCheckbox = document.getElementById('mirrorVideo');
+        const shouldMirror = mirrorCheckbox && mirrorCheckbox.checked;
+
+        // Save context state
+        this.ctx.save();
+
+        if (shouldMirror) {
+            // Mirror the video by flipping horizontally
+            this.ctx.translate(this.canvas.width, 0);
+            this.ctx.scale(-1, 1);
+        }
+
         // Draw video frame
         this.ctx.drawImage(video, 0, 0, this.canvas.width, this.canvas.height);
+
+        // Restore context state
+        this.ctx.restore();
 
         // Draw frame overlay with PROPER SIZING
         if (this.currentFrame && this.currentFrameData) {

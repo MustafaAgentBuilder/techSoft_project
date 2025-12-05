@@ -12,8 +12,8 @@
             <!-- Video Section -->
             <div class="video-section">
                 <div class="video-container">
-                    <video id="webcamVideo" width="800" height="600" autoplay playsinline style="display: none;"></video>
-                    <canvas id="liveCanvas" width="800" height="600"></canvas>
+                    <video id="webcamVideo" width="800" height="600" autoplay playsinline style="position: absolute; top: 0; left: 0; z-index: 1;"></video>
+                    <canvas id="liveCanvas" width="800" height="600" style="position: relative; z-index: 2;"></canvas>
                 </div>
 
                 <!-- Controls Section -->
