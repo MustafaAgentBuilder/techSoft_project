@@ -40,7 +40,14 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/compatibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/security.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/error-handler.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/performance.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/optimization.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

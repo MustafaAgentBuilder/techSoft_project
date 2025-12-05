@@ -12,31 +12,45 @@
             <!-- Video Section -->
             <div class="video-section">
                 <div class="video-container">
-                    <video id="webcamVideo" width="800" height="600" autoplay playsinline></video>
-                    <canvas id="liveCanvas" width="800" height="600" style="display: none;"></canvas>
-
-                    <!-- Camera Controls -->
-                    <div class="camera-controls" id="cameraControls">
-                        <button class="btn btn-primary" id="startCameraBtn">Start Camera</button>
-                        <button class="btn btn-secondary" id="stopCameraBtn" style="display: none;">Stop Camera</button>
-                    </div>
-
-                    <!-- Permission Message -->
-                    <div class="permission-message" id="permissionMessage" style="display: none;">
-                        <div class="message-content">
-                            <h4>📹 Camera Access Required</h4>
-                            <p>Please allow camera access to use the live try-on feature.</p>
-                            <button class="btn btn-primary" id="requestPermissionBtn">Enable Camera</button>
-                        </div>
-                    </div>
+                    <video id="webcamVideo" width="800" height="600" autoplay playsinline style="display: none;"></video>
+                    <canvas id="liveCanvas" width="800" height="600"></canvas>
                 </div>
 
                 <!-- Controls Section -->
                 <div class="controls-section" id="liveControls" style="display: none;">
                     <div class="frame-selector">
                         <h4>Select Frame</h4>
+
+                        <!-- Category Filters -->
+                        <div class="category-filters" id="liveCategoryFilters">
+                            <button class="category-filter active" data-category="all">
+                                All Frames
+                            </button>
+                            <button class="category-filter" data-category="classic">
+                                Classic
+                            </button>
+                            <button class="category-filter" data-category="vintage">
+                                Vintage
+                            </button>
+                            <button class="category-filter" data-category="sport">
+                                Sport
+                            </button>
+                            <button class="category-filter" data-category="fashion">
+                                Fashion
+                            </button>
+                            <button class="category-filter" data-category="minimalist">
+                                Minimalist
+                            </button>
+                        </div>
+
+                        <!-- Frame Options Grid -->
                         <div class="frame-options" id="liveFrameOptions">
                             <!-- Frames will be loaded dynamically -->
+                        </div>
+
+                        <!-- Filter Results Info -->
+                        <div class="filter-info" id="liveFilterInfo" style="display: none;">
+                            <span id="liveFilterCount"></span>
                         </div>
                     </div>
 
@@ -70,12 +84,10 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/webcam.js') }}"></script>
-<script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
+<script src="{{ url_for('static', filename='js/live-tryon-simple.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Live Try-On page loaded');
-    // Initialize webcam functionality will be added in webcam.js
+    console.log('Live Try-On page loaded - using simple version');
 });
 </script>
 {% endblock %}

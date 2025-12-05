@@ -33,8 +33,37 @@
                 <div class="controls-section">
                     <div class="frame-selector">
                         <h4>Select Frame</h4>
+
+                        <!-- Category Filters -->
+                        <div class="category-filters" id="categoryFilters">
+                            <button class="category-filter active" data-category="all">
+                                All Frames
+                            </button>
+                            <button class="category-filter" data-category="classic">
+                                Classic
+                            </button>
+                            <button class="category-filter" data-category="vintage">
+                                Vintage
+                            </button>
+                            <button class="category-filter" data-category="sport">
+                                Sport
+                            </button>
+                            <button class="category-filter" data-category="fashion">
+                                Fashion
+                            </button>
+                            <button class="category-filter" data-category="minimalist">
+                                Minimalist
+                            </button>
+                        </div>
+
+                        <!-- Frame Options Grid -->
                         <div class="frame-options" id="frameOptions">
                             <!-- Frames will be loaded dynamically -->
+                        </div>
+
+                        <!-- Filter Results Info -->
+                        <div class="filter-info" id="filterInfo" style="display: none;">
+                            <span id="filterCount"></span>
                         </div>
                     </div>
 
@@ -42,15 +71,18 @@
                         <h4>Adjust Position</h4>
                         <div class="control-group">
                             <label>X Position: <span id="xValue">400</span></label>
-                            <input type="range" id="xSlider" min="0" max="800" value="400">
+                            <input type="range" id="xSlider" min="0" max="800" value="400"
+                                   aria-label="Frame horizontal position" aria-valuemin="0" aria-valuemax="800" aria-valuenow="400" aria-valuetext="400 pixels from left">
                         </div>
                         <div class="control-group">
                             <label>Y Position: <span id="yValue">200</span></label>
-                            <input type="range" id="ySlider" min="0" max="600" value="200">
+                            <input type="range" id="ySlider" min="0" max="600" value="200"
+                                   aria-label="Frame vertical position" aria-valuemin="0" aria-valuemax="600" aria-valuenow="200" aria-valuetext="200 pixels from top">
                         </div>
                         <div class="control-group">
                             <label>Size: <span id="zoomValue">100</span>%</label>
-                            <input type="range" id="zoomSlider" min="50" max="200" value="100">
+                            <input type="range" id="zoomSlider" min="50" max="200" value="100"
+                                   aria-label="Frame size zoom" aria-valuemin="50" aria-valuemax="200" aria-valuenow="100" aria-valuetext="100% zoom">
                         </div>
                         <button class="btn btn-secondary" id="resetBtn">Reset Position</button>
                     </div>
@@ -62,12 +94,10 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/overlay.js') }}"></script>
-<script src="{{ url_for('static', filename='js/photo-upload.js') }}"></script>
+<script src="{{ url_for('static', filename='js/photo-upload-simple.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Photo Try-On page loaded');
-    // Photo upload manager will initialize automatically
+    console.log('Photo Try-On page loaded - using simple version');
 });
 </script>
 {% endblock %}
